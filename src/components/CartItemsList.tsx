@@ -1,0 +1,36 @@
+import { useAppSelector } from "@/hooks";
+import { Card } from "./ui/card";
+import {
+  FirstColumn,
+  FourthColumn,
+  SecondColumn,
+  ThirdColumn,
+} from "./CartItemColumns";
+
+const CartItemsList = () => {
+  const cartItems = useAppSelector((state) => state.cartState.cartItems);
+  return (
+    <div>
+      {cartItems.map((cartItem) => {
+        const { title, price, cartID, image, amount, company, productColor } =
+          cartItem;
+        return (
+          <Card
+            key={cartID}
+            className='flex flex-col-4 gap-y-4 sm:flex-row flex-wrap p-6 mb-8'
+          >
+            <FirstColumn image={image} title={title} />
+            <SecondColumn
+              title={title}
+              company={company}
+              productColor={productColor}
+            />
+            <ThirdColumn cartID={cartID} amount={amount} />
+            <FourthColumn price={price} />
+          </Card>
+        );
+      })}
+    </div>
+  );
+};
+export default CartItemsList;
